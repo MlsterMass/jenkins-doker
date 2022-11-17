@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-COPY index.php /var/www/html
+COPY src/index.php /var/www/html
 ENV TZ=Europe/Kiev
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     && apk update \
