@@ -5,6 +5,9 @@ pipeline {
         registry = "200319906117207/jenkins-doker"
         registryCredential = 'docker hub access'
     }
+    options {
+        skipStagesAfterUnstable()
+    }
     stages {
         stage('Test') {
             steps {
@@ -37,5 +40,5 @@ pipeline {
                 }
             }
         }
-   }
+    }
 }
