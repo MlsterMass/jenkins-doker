@@ -11,10 +11,10 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh '''
+                sh """
                      chmod +x test-stage.sh
                      sh test-stage.sh
-                '''
+                """
             }
         }
         stage('Clone repository') {
@@ -26,11 +26,9 @@ pipeline {
         }
         stage('Build docker image') {
             steps {
-                app = sh (
-                    script: '''
-                         docker build -t 200319906117207/jenkins-doker:latest .
-                     '''
-                     )
+                script {
+                    app = docker build -t 200319906117207/jenkins-doker:latest .
+                }
             }
         }
         stage('Push docker image') {
