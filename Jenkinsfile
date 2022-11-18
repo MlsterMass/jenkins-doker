@@ -9,25 +9,35 @@ pipeline {
         skipStagesAfterUnstable()
     }
     stages {
-         stage('Clone repository') {
+        stage('Test') {
+            steps {
+                sh """
+                     chmod +x test-stage.sh
+                     sh test-stage.sh
+                """
+            }
+        }
+        stage('Clone repository') {
             steps {
                 script {
                     checkout scm
                 }
             }
         }
-
         stage('Build docker image') {
             steps {
-                script{
-                    app = docker.build(registry)
+                agent{
+                    docker {
+                        script {
+                            app = docker.build(registry)
+                        }
+                    }
                 }
             }
         }
-
         stage('Push docker image') {
             steps {
-                script{
+                script {
                     docker.withRegistry('', registryCredential) {
                         app.push("latest")
                     }
@@ -36,4 +46,3 @@ pipeline {
         }
     }
 }
-
