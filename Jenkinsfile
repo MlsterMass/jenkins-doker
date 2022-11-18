@@ -30,6 +30,7 @@ pipeline {
                     script: '''
                          docker build -t shanem/spring-petclinic:latest .
                      '''
+                     )
             }
         }
         stage('Push docker image') {
