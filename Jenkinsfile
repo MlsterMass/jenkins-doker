@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    environment {
+        DOCKERHUB_CREDENTIALS=credentials('docker hub access')
+        registry = "200319906117207/jenkins-doker"
+        registryCredential = 'docker hub access'
+    }
     stages {
         stage('Test') {
             steps {
@@ -9,12 +14,27 @@ pipeline {
                 """
             }
         }
-        stage('Push') {
+        stage('Clone repository') {
             steps {
-                git credentialsId: 'github-access', url: 'https://github.com/MlsterMass/jenkins-doker.git'
-                dockerImage = docker.build("200319906117207/jenkins-docker:latest")
-                withDockerRegistry([ credentialsId: "docker hub access", url: "" ])
-                dockerImage.push()
+                script {
+                    checkout scm
+                }
+            }
+        }
+        stage('Build docker image') {
+            steps {
+                script{
+                    app = docker.build(registry)
+                }
+            }
+        }
+        stage('Push docker image') {
+            steps {
+                script{
+                    docker.withRegistry('', registryCredential) {
+                        app.push("latest")
+                    }
+                }
             }
         }
    }
