@@ -11,10 +11,10 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh """
+                sh '''
                      chmod +x test-stage.sh
                      sh test-stage.sh
-                """
+                '''
             }
         }
         stage('Clone repository') {
@@ -26,13 +26,10 @@ pipeline {
         }
         stage('Build docker image') {
             steps {
-                agent{
-                    docker {
-                        script {
-                            app = docker.build(registry)
-                        }
-                    }
-                }
+                app = sh (
+                    script: '''
+                         docker build -t shanem/spring-petclinic:latest .
+                     '''
             }
         }
         stage('Push docker image') {
