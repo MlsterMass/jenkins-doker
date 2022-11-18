@@ -26,9 +26,9 @@ pipeline {
         }
         stage('Build docker image') {
             steps {
-                script {
-                    app = docker build -t 200319906117207/jenkins-doker:latest .
-                }
+                sh """
+                    docker build -t 200319906117207/jenkins-doker:latest .
+                """
             }
         }
         stage('Push docker image') {
