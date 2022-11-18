@@ -1,9 +1,9 @@
 pipeline {
     agent any
     environment {
-        DOCKERHUB_CREDENTIALS=credentials('docker hub access')
+        DOCKERHUB_CREDENTIALS=credentials('200319906117207/******')
         registry = "200319906117207/jenkins-doker"
-        registryCredential = 'docker hub access'
+        registryCredential = '200319906117207/******'
     }
     options {
         skipStagesAfterUnstable()
