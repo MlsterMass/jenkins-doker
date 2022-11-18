@@ -28,7 +28,7 @@ pipeline {
             steps {
                 app = sh (
                     script: '''
-                         docker build -t shanem/spring-petclinic:latest .
+                         docker build -t 200319906117207/jenkins-doker:latest .
                      '''
                      )
             }
