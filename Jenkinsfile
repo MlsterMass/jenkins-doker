@@ -1,5 +1,7 @@
 pipeline {
-    agent docker
+    agent {
+        label 'docker'
+    }
     environment {
         DOCKERHUB_CREDENTIALS=credentials('docker hub access')
         registry = "200319906117207/jenkins-doker"
