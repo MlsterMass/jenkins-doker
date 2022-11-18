@@ -4,9 +4,8 @@ pipeline {
         stage('Test') {
             steps {
                 sh """
-                     #!/bin/bash -ex
                      chmod +x test-stage.sh
-                     test-stage.sh
+                     sh test-stage.sh
                 """
             }
         }
