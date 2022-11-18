@@ -13,9 +13,8 @@ pipeline {
             steps {
                 git credentialsId: 'github-access', url: 'https://github.com/MlsterMass/jenkins-doker.git'
                 dockerImage = docker.build("200319906117207/jenkins-docker:latest")
-                withDockerRegistry([ credentialsId: "docker hub access", url: "" ]) {
+                withDockerRegistry([ credentialsId: "docker hub access", url: "" ])
                 dockerImage.push()
-                }
             }
         }
    }
