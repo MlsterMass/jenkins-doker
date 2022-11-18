@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'docker'
-    }
+    agent any
     environment {
         DOCKERHUB_CREDENTIALS=credentials('docker hub access')
         registry = "200319906117207/jenkins-doker"
@@ -28,14 +26,14 @@ pipeline {
         }
         stage('Build docker image') {
             steps {
-                script{
+                script {
                     app = docker.build(registry)
                 }
             }
         }
         stage('Push docker image') {
             steps {
-                script{
+                script {
                     docker.withRegistry('', registryCredential) {
                         app.push("latest")
                     }
